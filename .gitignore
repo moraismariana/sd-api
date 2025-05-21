@@ -1,0 +1,14 @@
+.env
+.venv
+venv
+venv/
+
+# /media/
+# media/
+
+# db.sqlite3
+
+__pycache__
+__pycache__/
+/__pycache__/
+*__pycache__*
