@@ -3,10 +3,16 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.pagination import PageNumberPagination
 
 from monografias.models import Monografia, Arquivo
 from monografias.serializers import MonografiaSerializer, ArquivoSerializer
 from monografias.filters import MonografiaFilter
+
+class StandardResultsSetPagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'page_size'
+    max_page_size = 50
 
 class MonografiaViewSet(viewsets.ModelViewSet):
     queryset = Monografia.objects.all().order_by('-data_defesa', '-id')
@@ -16,6 +22,7 @@ class MonografiaViewSet(viewsets.ModelViewSet):
         DjangoFilterBackend,
         drf_filters.OrderingFilter
     ]
+    pagination_class = StandardResultsSetPagination
 
     search_fields = [
         'titulo',
