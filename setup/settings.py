@@ -131,8 +131,15 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+        # 'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+        'rest_framework.permissions.AllowAny',
     ],
+    'DEFAULT_THROTTLE_CLASSES': [
+        'setup.throttles.LimitacaoPorIP',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon_ip': '120/minute',
+    }
 }
 
 from datetime import timedelta
